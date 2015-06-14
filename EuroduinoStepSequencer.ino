@@ -1,4 +1,4 @@
-s /*
+/*
     Telekinetic
                    n
         |\   |  or
