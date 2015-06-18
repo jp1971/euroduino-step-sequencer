@@ -96,6 +96,20 @@ void loop() {
         v3 = map( v3, 0, 1023, 255, 0 );
         analogWrite( analogOut1Pin, v3 );
       }
+    } else if ( digitalRead( Switch1Dwn ) == LOW) {
+      if ( digitalRead( Switch2Up ) == LOW) {
+        v4 = analogRead( analogPot2Pin );
+        v4 = map( v4, 0, 1023, 255, 0 );
+        analogWrite( analogOut1Pin, v4 );
+      } else if ( digitalRead( Switch2Dwn ) == LOW ) {
+        v5 = analogRead( analogPot2Pin );
+        v5 = map( v5, 0, 1023, 255, 0 );
+        analogWrite( analogOut1Pin, v5 );
+      } else {
+        v6 = analogRead( analogPot2Pin );
+        v6 = map( v6, 0, 1023, 255, 0 );
+        analogWrite( analogOut1Pin, v6 );
+      }
     }
   } else {
     if ( currentState == 1 && previousState == 0 ) {
@@ -109,6 +123,26 @@ void loop() {
         step = 3;
       } else if ( step == 3 ) {
         analogWrite( analogOut1Pin, v3 );
+        previousState = 1;
+        step = 4;
+      } else if ( step == 4 ) {
+        analogWrite( analogOut1Pin, v4 );
+        previousState = 1;
+        step = 5;
+      } else if ( step == 5 ) {
+        analogWrite( analogOut1Pin, v5 );
+        previousState = 1;
+        step = 6;
+      } else if ( step == 6 ) {
+        analogWrite( analogOut1Pin, v6 );
+        previousState = 1;
+        step = 7;
+      } else if ( step == 7 ) {
+        analogWrite( analogOut1Pin, v7 );
+        previousState = 1;
+        step = 8;
+      } else if ( step == 8 ) {
+        analogWrite( analogOut1Pin, v8 );
         previousState = 1;
         step = 1;
       }
