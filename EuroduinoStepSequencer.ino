@@ -17,7 +17,7 @@
  * TKTKTKTK
  */
 
-/*  Copyright 2015 JP1971 (jameson@jp1971.com)
+/*  Copyright 2023 Telekinetic Unicorn
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -82,36 +82,108 @@ void loop() {
   currentState = digitalRead( DigitalIn1Pin );
 
   if ( analogRead( analogPot1Pin ) > 511 ) {
+    // TODO Convert this to a function
     if ( digitalRead( Switch1Up ) == LOW) {
+      // Switch 1 up
       if ( digitalRead( Switch2Up ) == LOW) {
+        // Switch 1 up, switch 2 up
         v1 = analogRead( analogPot2Pin );
-        v1 = map( v1, 0, 1023, 255, 0 );
-        analogWrite( analogOut1Pin, v1 );
+        v1 = map( v1, 0, 1023, 255, 0);
+        analogWrite( analogOut1Pin, v1 );        
       } else if ( digitalRead( Switch2Dwn ) == LOW ) {
-        v2 = analogRead( analogPot2Pin );
-        v2 = map( v2, 0, 1023, 255, 0 );
-        analogWrite( analogOut1Pin, v2 );
-      } else {
+        // Switch 1 up, switch 2 down
         v3 = analogRead( analogPot2Pin );
         v3 = map( v3, 0, 1023, 255, 0 );
         analogWrite( analogOut1Pin, v3 );
+      } else {
+        // Switch 1 up, switch 2 middle
+        v2 = analogRead( analogPot2Pin );
+        v2 = map( v2, 0, 1023, 255, 0 );
+        analogWrite( analogOut1Pin, v2 );
       }
     } else if ( digitalRead( Switch1Dwn ) == LOW) {
+      // Switch 1 down
       if ( digitalRead( Switch2Up ) == LOW) {
+        // Switch 1 down, switch 2 up        
+        v7 = analogRead( analogPot2Pin );
+        v7 = map( v7, 0, 1023, 255, 0 );
+        analogWrite( analogOut1Pin, v7 );
+      } else if ( digitalRead( Switch2Dwn ) == LOW ) {
+        // Switch 1 down, switch 2 down    
+        // Do something when both switches are down
+      } else {
+        // Switch 1 down, switch 2 middle          
+        v8 = analogRead( analogPot2Pin );
+        v8 = map( v8, 0, 1023, 255, 0 );
+        analogWrite( analogOut1Pin, v8 );
+      }
+    } else {
+      // Switch 1 middle
+      if ( digitalRead( Switch2Up ) == LOW) {
+        // Switch 1 middle, switch 2 up    
         v4 = analogRead( analogPot2Pin );
         v4 = map( v4, 0, 1023, 255, 0 );
         analogWrite( analogOut1Pin, v4 );
       } else if ( digitalRead( Switch2Dwn ) == LOW ) {
-        v5 = analogRead( analogPot2Pin );
-        v5 = map( v5, 0, 1023, 255, 0 );
-        analogWrite( analogOut1Pin, v5 );
-      } else {
+        // Switch 1 middle, switch 2 up    
         v6 = analogRead( analogPot2Pin );
         v6 = map( v6, 0, 1023, 255, 0 );
         analogWrite( analogOut1Pin, v6 );
+      } else {
+        v5 = analogRead( analogPot2Pin );
+        v5 = map( v5, 0, 1023, 255, 0 );
+        analogWrite( analogOut1Pin, v5 );
       }
     }
-  } else {
+  } 
+  else {
+    // TODO Convert this to a function
+    // Set voltages
+    if ( digitalRead( Switch1Up ) == LOW) {
+      // Switch 1 up
+      if ( digitalRead( Switch2Up ) == LOW) {
+        // Switch 1 up, switch 2 up
+        v1 = analogRead( analogPot2Pin );
+        v1 = map( v1, 0, 1023, 255, 0);      
+      } else if ( digitalRead( Switch2Dwn ) == LOW ) {
+        // Switch 1 up, switch 2 down
+        v3 = analogRead( analogPot2Pin );
+        v3 = map( v3, 0, 1023, 255, 0 );
+      } else {
+        // Switch 1 up, switch 2 middle
+        v2 = analogRead( analogPot2Pin );
+        v2 = map( v2, 0, 1023, 255, 0 );
+      }
+    } else if ( digitalRead( Switch1Dwn ) == LOW) {
+      // Switch 1 down
+      if ( digitalRead( Switch2Up ) == LOW) {
+        // Switch 1 down, switch 2 up        
+        v7 = analogRead( analogPot2Pin );
+        v7 = map( v7, 0, 1023, 255, 0 );
+      } else if ( digitalRead( Switch2Dwn ) == LOW ) {
+        // Switch 1 down, switch 2 down    
+        // Do something when both switches are down
+      } else {
+        // Switch 1 down, switch 2 middle          
+        v8 = analogRead( analogPot2Pin );
+        v8 = map( v8, 0, 1023, 255, 0 );
+      }
+    } else {
+      // Switch 1 middle
+      if ( digitalRead( Switch2Up ) == LOW) {
+        // Switch 1 middle, switch 2 up    
+        v4 = analogRead( analogPot2Pin );
+        v4 = map( v4, 0, 1023, 255, 0 );
+      } else if ( digitalRead( Switch2Dwn ) == LOW ) {
+        // Switch 1 middle, switch 2 up    
+        v6 = analogRead( analogPot2Pin );
+        v6 = map( v6, 0, 1023, 255, 0 );
+      } else {
+        v5 = analogRead( analogPot2Pin );
+        v5 = map( v5, 0, 1023, 255, 0 );
+      }
+    }
+    // Write voltages
     if ( currentState == 1 && previousState == 0 ) {
       if ( step == 1 ) {
         analogWrite( analogOut1Pin, v1 );
@@ -146,7 +218,7 @@ void loop() {
         previousState = 1;
         step = 1;
       }
-    } else if ( currentState == 0 && previousState == 1 ) {
+  } else if ( currentState == 0 && previousState == 1 ) {
       previousState = 0;
     }
   }
